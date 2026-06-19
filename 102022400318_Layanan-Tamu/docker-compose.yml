@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  # Service Utama Aplikasi Laravel
+  guest-app:
+    image: php:8.4-cli  
+    container_name: guest_service_app
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "8888:8000"
+    volumes:
+      - .:/var/www/html
+    working_dir: /var/www/html
+    command: sh -c "docker-php-ext-install pdo_mysql && php artisan serve --host=0.0.0.0 --port=8000"
+    depends_on:
+      - guest-db
+
+  # Service Database MySQL
+  guest-db:
+    image: mysql:8.0
+    container_name: guest_service_db
+    restart: unless-stopped
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: guest_service_db
+    volumes:
+      - guest_db_data:/var/lib/mysql
+
+volumes:
+  guest_db_data:

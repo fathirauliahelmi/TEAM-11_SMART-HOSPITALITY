@@ -1,0 +1,167 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Smart Hospitality API",
+        "description": "API Dokumentasi untuk Layanan Tamu",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/v1/guest-sessions": {
+            "get": {
+                "tags": [
+                    "Layanan Tamu"
+                ],
+                "summary": "Mengambil semua sesi tamu",
+                "operationId": "getAllGuestSessions",
+                "responses": {
+                    "200": {
+                        "description": "Berhasil mengambil data"
+                    }
+                },
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Layanan Tamu"
+                ],
+                "summary": "Membuat sesi tamu baru",
+                "operationId": "createGuestSession",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "room_number",
+                                    "guest_name"
+                                ],
+                                "properties": {
+                                    "room_number": {
+                                        "type": "string",
+                                        "example": "318"
+                                    },
+                                    "guest_name": {
+                                        "type": "string",
+                                        "example": "Ricad"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Berhasil membuat sesi tamu"
+                    }
+                },
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/guest-sessions/{id}": {
+            "get": {
+                "tags": [
+                    "Layanan Tamu"
+                ],
+                "summary": "Mengambil detail sesi tamu",
+                "operationId": "getGuestSessionById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Data ditemukan"
+                    },
+                    "404": {
+                        "description": "Data tidak ditemukan"
+                    }
+                },
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Layanan Tamu"
+                ],
+                "summary": "Memperbarui sesi tamu",
+                "operationId": "updateGuestSession",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "room_number": {
+                                        "type": "string",
+                                        "example": "320"
+                                    },
+                                    "check_out_at": {
+                                        "type": "string",
+                                        "example": "2026-06-10 12:00:00"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Berhasil diperbarui"
+                    },
+                    "404": {
+                        "description": "Data tidak ditemukan"
+                    }
+                },
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "ApiKeyAuth": {
+                "type": "apiKey",
+                "name": "X-API-KEY",
+                "in": "header"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Layanan Tamu",
+            "description": "Guest Service API"
+        }
+    ]
+}

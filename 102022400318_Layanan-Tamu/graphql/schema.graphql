@@ -1,0 +1,22 @@
+"A datetime string with format `Y-m-d H:i:s`, e.g. `2026-06-07 23:45:00`."
+scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
+
+type Query {
+    "Mengambil semua daftar sesi tamu"
+    allGuestSessions: [GuestSession!]! @all
+
+    "Mengambil detail satu sesi tamu berdasarkan ID"
+    guestSessionById(id: ID! @eq): GuestSession @find
+}
+
+type GuestSession {
+    id: ID!
+    room_number: String!
+    guest_name: String!
+    session_token: String!
+    check_in_at: DateTime
+    check_out_at: DateTime
+    status: String!
+    created_at: DateTime!
+    updated_at: DateTime!
+}
